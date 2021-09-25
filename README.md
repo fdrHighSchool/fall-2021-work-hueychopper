@@ -1,9 +1,9 @@
 # fall-2021-work
 ## FDR High School - AP CS A
 
-### Last Name: 
-### First Name: 
-### GitHub Username:
+### Last Name: Angelov
+### First Name: Samuel
+### GitHub Username: hueychopper
 
 
 #### General Workflow: 
