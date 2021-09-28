@@ -1,18 +1,10 @@
-<<<<<<< HEAD
 import java.util.Scanner;
 
-=======
-// class Rocket { public static void main(String[] args) { System.out.println("   /\\\n  /  \\\n /    \\\n+------+\n|      |\n|      |\n+------+\n|United|\n|States|\n+------+\n|      |\n|      |\n+------+\n   /\\\n  /  \\\n /    \\\n");}}
->>>>>>> 1051f3b3e911b40904469927a7a5f31d08c99418
 public class Rocket {
     public static void TB() {
         System.out.println("   /\\\n  /  \\\n /    \\");
     } 
     public static void Box() {
-<<<<<<< HEAD
-=======
-        // cn = cn || null;
->>>>>>> 1051f3b3e911b40904469927a7a5f31d08c99418
         String divider = "+------+";
         String space = "      ";
         System.out.println(divider);
@@ -21,7 +13,6 @@ public class Rocket {
         }
         System.out.println(divider);
     }
-<<<<<<< HEAD
     public static void label(String cn1, String cn2) {
         if(cn1 == null && cn2 == null) {
             String defaultCn = "|United|\n|States|";
@@ -73,7 +64,7 @@ public class Rocket {
         } else {
             System.out.println("country name is too long!!");
         }
-=======
+    }
     public static void label() {
         System.out.println("|United|\n|States|");
     }
@@ -83,6 +74,5 @@ public class Rocket {
         label();
         Box();
         TB();
->>>>>>> 1051f3b3e911b40904469927a7a5f31d08c99418
     }
 }
