@@ -14,7 +14,7 @@ public class Rocket {
         System.out.println(divider);
     }
     public static void label(String cn1, String cn2) {
-        if(cn1 == null && cn2 == null) {
+        if(cn1.isEmpty() && cn2.isEmpty()) {
             String defaultCn = "|United|\n|States|";
             System.out.println(defaultCn);
         } else {
@@ -64,15 +64,5 @@ public class Rocket {
         } else {
             System.out.println("country name is too long!!");
         }
-    }
-    public static void label() {
-        System.out.println("|United|\n|States|");
-    }
-    public static void main(String[] args) {
-        TB();
-        Box();
-        label();
-        Box();
-        TB();
     }
 }
