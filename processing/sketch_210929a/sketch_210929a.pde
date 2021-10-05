@@ -1,6 +1,5 @@
 float posX, posY;
 float theta;
-
 ArrayList<Stars> stars;
 
 void setup() {
@@ -22,11 +21,15 @@ void draw() {
   fill(255, 170, 0);
   ellipse(width/2, height/2, 200, 200);
   mercury();
+  venus();
+  //earth();
+  //mars();
 }
 void planetOrbits(float radiusX, float radiusY) {
-   theta += 0.01;
+   //translate(width/2, height/2);
    posX = radiusX * cos(theta);
    posY = radiusY * sin(theta);
+   theta = theta + 1;
 }
 
 void mercury() {
@@ -35,3 +38,19 @@ void mercury() {
    fill(255);
    ellipse(posX, posY, 30, 30);
 }
+void venus() {
+  //translate(120, 120);
+  planetOrbits(220, 220);
+  fill(180, 40, 10);
+  ellipse(posX, posY, 40, 40);
+}
+//void earth() {
+//  planetOrbits(4, 300, 300);
+//  fill(0, 10, 150);
+//  ellipse(posX, posY, 50, 50);
+//}
+//void mars() {
+//  planetOrbits(5, 380, 380);
+//  fill(150, 5, 5);
+//  ellipse(posX, posY, 45, 45);
+//}
