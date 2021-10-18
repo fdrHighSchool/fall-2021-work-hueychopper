@@ -3,7 +3,6 @@ import java.util.ArrayList;
 
 class Rngg {
     public static void main(String[] args) {
-        //TODO: replay, check: difficulty = {"easy", "medium", "hard"}, 
         System.out.println("use ctrl+c to exit");
         try {
             if(args[0].equals("easy") || args[0].equals("medium") || args[0].equals("hard")) {
@@ -12,10 +11,8 @@ class Rngg {
         } catch(Exception except) {
             System.out.println("none chosen. exiting");
             System.exit(0);
-        }
-        System.out.println("that is the correct number");
-        
-        
+        } //use java try-except block to make it stop giving threading error
+        //it will now exit program w/o error
     }
     public static void gameMode(String mode) {
         System.out.println(mode);
@@ -54,16 +51,33 @@ class Rngg {
                 break;
             }
         }
+        // replay();
     }
     public static void Easy(String modeInherit) {
         int correctNum = (int)(Math.random()*9+1);
-        // System.out.println(correctNum);
         mainLoop(correctNum, modeInherit);
+        replay(correctNum, modeInherit);
     }
     public static void Med(String modeInherit) {
-        System.out.println("med");
+        int correctNum = (int)(Math.random()*14+1);
+        mainLoop(correctNum, modeInherit);
+        replay(correctNum, modeInherit);
     }
     public static void Hard(String modeInherit) {
-        System.out.println("hard");
+        int correctNum = (int)(Math.random()*24+1);
+        mainLoop(correctNum, modeInherit);
+        replay(correctNum, modeInherit);
+    }
+    public static void replay(int getNum, String getMode) {
+        System.out.println("good guess. thats the correct number");
+        //replay
+        System.out.print("would you like to play again? [y/n]: ");
+        Scanner rp = new Scanner(System.in);
+        if(rp.nextLine().equals("y")) {
+            System.out.println("ok. replaying");
+            mainLoop(getNum, getMode);
+        } else {
+            System.exit(0);
+        }
     }
 }
