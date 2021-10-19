@@ -51,7 +51,6 @@ class Rngg {
                 break;
             }
         }
-        // replay();
     }
     public static void Easy(String modeInherit) {
         int correctNum = (int)(Math.random()*9+1);
@@ -75,7 +74,7 @@ class Rngg {
         Scanner rp = new Scanner(System.in);
         if(rp.nextLine().equals("y")) {
             System.out.println("ok. replaying");
-            mainLoop(getNum, getMode);
+            gameMode(getMode);
         } else {
             System.exit(0);
         }
