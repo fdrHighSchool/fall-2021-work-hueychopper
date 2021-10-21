@@ -15,10 +15,15 @@ public class Username {
         String username ="";
         username += fname.substring(0,1);
         username += lname.substring(lname.length()-2);
-        username += bday.substring(0,2);
-        username += bday.substring(8);
-        username += "@";
-        //domain??
+        if(bday.length() != 10) {
+            System.out.println("enter correct format. quitting");
+            System.exit(0);
+        } else {
+            username += bday.substring(0,2);
+            username += bday.substring(8);
+        }
+        
+        username += "@anonymous.onion";
         System.out.println(username);
     }
 }
