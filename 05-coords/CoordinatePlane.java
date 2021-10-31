@@ -18,7 +18,7 @@ public class CoordinatePlane {
 
         int x1 = getPoints(points, false, false, "x1");
         int y1 = getPoints(points, false, true, "y1");
-        crowDistance(x1, y1, 0, 0);
+        crowDistance(x1, y1, 0, 0); //0,0 are temporary placeholders for testing
         
     }
     public static int getPoints(String points, boolean moveTo2, boolean getYVal, String pointQuery) {
