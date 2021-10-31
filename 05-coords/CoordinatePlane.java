@@ -5,6 +5,8 @@
 //substring method
 //indexOf
 import java.util.*;
+import java.lang.Math;
+
 public class CoordinatePlane {
     public static void main(String[] args) {
         //Integer.parseInt("12"); //outputs 12 as int
@@ -14,8 +16,9 @@ public class CoordinatePlane {
         Scanner sc = new Scanner(System.in);
         String points = sc.nextLine();
 
-        getPoints(points, false, false, "x1");
-        getPoints(points, false, true, "y1");
+        int x1 = getPoints(points, false, false, "x1");
+        int y1 = getPoints(points, false, true, "y1");
+        crowDistance(x1, y1, 0, 0);
         
     }
     public static int getPoints(String points, boolean moveTo2, boolean getYVal, String pointQuery) {
@@ -28,19 +31,30 @@ public class CoordinatePlane {
             String cutX1 = points.substring(1, indicateCom);
 
             int x1 = Integer.parseInt(cutX1);
-            System.out.println(x1);
+            //System.out.println(x1);
 
             return x1;
         } else if(pointQuery.equals("y1") && getYVal == true) {
             int bp = points.indexOf(")");
             String yInd = points.substring(space+1, bp);
             int y1 = Integer.parseInt(yInd);
-            System.out.println(yInd);
+            //System.out.println(yInd);
             return y1;
         } else {
             return 0;
         }
     }
 
-    // public static int crowDistance()
+    public static double crowDistance(int x1, int y1, int x2, int y2) {
+        int ptArray[] = new int[4];
+        ptArray[0] = x1;
+        ptArray[1] = y1;
+        ptArray[2] = x2;
+        ptArray[3] = y2;
+
+        double distance = Math.sqrt(Math.pow((ptArray[2] - ptArray[0]), 2) + Math.pow((ptArray[3] - ptArray[1]), 2));
+        System.out.println(ptArray[0]);
+        System.out.println(distance);
+        return distance;
+    } 
 }
