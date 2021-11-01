@@ -19,11 +19,12 @@ public class CoordinatePlane {
         int x1 = getPoints(points, false, false, "x1");
         int y1 = getPoints(points, false, true, "y1");
         int x2 = getPoints(points, true, false, "x2");
+        int y2 = getPoints(points, true, true, "y2");
 
         System.out.println("crow: ");
-        crowDistance(x1, y1, 0, 0); //0,0 are temporary placeholders for testing
+        crowDistance(x1, y1, x2, y2); //0,0 are temporary placeholders for testing
         System.out.println("taxi: ");
-        taxicabDistance(x1, y1, x2, 0);
+        taxicabDistance(x1, y1, x2, y2);
         
     }
     public static int getPoints(String points, boolean moveTo2, boolean getYVal, String pointQuery) {
@@ -46,14 +47,20 @@ public class CoordinatePlane {
             //System.out.println(yInd);
             return y1;
         } else {
-            if(moveTo2 == true) {
-                int index = points.indexOf(" ");
-                while(index >= 0) {
-                    System.out.print("yes");
-                    index = points.indexOf(points, index+1);
-                    System.out.println(index);
-                }
-                return index;
+            if(moveTo2 == true || pointQuery.equals("x2")) {
+                int indexSpace = points.indexOf(" ", points.indexOf(" ") + 1);
+                String cut = points.substring(indexSpace+1);
+                String indx2 = points.substring(cut.indexOf("(")+1, cut.indexOf(","));
+                // System.out.println(indx2);
+                int indX2 = Integer.parseInt(indx2);
+                // System.out.println(indX2);
+                return indX2;
+            } else if(moveTo2 == true && getYVal == true || pointQuery.equals("y2")) {
+                String indy2 = points.substring(cut.indexOf(","));
+                int indY2 = Integer.parseInt(indy2);
+                // System.out.print("y: ");
+                // System.out.println(indY2);
+                return indY2;
             } else {
                 return 0;
             }
