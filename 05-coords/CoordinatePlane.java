@@ -18,7 +18,12 @@ public class CoordinatePlane {
 
         int x1 = getPoints(points, false, false, "x1");
         int y1 = getPoints(points, false, true, "y1");
+        int x2 = getPoints(points, true, false, "x2");
+
+        System.out.println("crow: ");
         crowDistance(x1, y1, 0, 0); //0,0 are temporary placeholders for testing
+        System.out.println("taxi: ");
+        taxicabDistance(x1, y1, x2, 0);
         
     }
     public static int getPoints(String points, boolean moveTo2, boolean getYVal, String pointQuery) {
@@ -41,8 +46,19 @@ public class CoordinatePlane {
             //System.out.println(yInd);
             return y1;
         } else {
-            return 0;
+            if(moveTo2 == true) {
+                int index = points.indexOf(" ");
+                while(index >= 0) {
+                    System.out.print("yes");
+                    index = points.indexOf(points, index+1);
+                    System.out.println(index);
+                }
+                return index;
+            } else {
+                return 0;
+            }
         }
+        
     }
 
     public static double crowDistance(int x1, int y1, int x2, int y2) {
@@ -53,8 +69,13 @@ public class CoordinatePlane {
         ptArray[3] = y2;
 
         double distance = Math.sqrt(Math.pow((ptArray[2] - ptArray[0]), 2) + Math.pow((ptArray[3] - ptArray[1]), 2));
-        System.out.println(ptArray[0]);
+        // System.out.println(ptArray[0]);
         System.out.println(distance);
         return distance;
     } 
+    public static double taxicabDistance(int x1, int y1, int x2, int y2) {
+        double distance = Math.abs(y2 - y1) + Math.abs(x2 - x1);
+        System.out.println(distance);
+        return distance;
+    }
 }
