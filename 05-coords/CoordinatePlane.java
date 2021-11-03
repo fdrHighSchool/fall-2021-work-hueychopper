@@ -1,9 +1,4 @@
 //take in 2 input points format: (x1, y1) (x2, y2)
-//2 methods: crowDistance(int x1, int x2, int y1, int y2) and taxicabDistance(int x1, int x2, int y1, int y2)
-//crowdistance math : sqrt((y2-y1)**2 + (x2-x1)**2)
-//taxicabdistance math : absolute value: abs(); abs(y2-y1) + abs(x2-x1)
-//substring method
-//indexOf
 import java.util.*;
 import java.lang.Math;
 
@@ -22,7 +17,7 @@ public class CoordinatePlane {
         int y2 = getPoints(points, true, true, "y2");
 
         System.out.println("crow: ");
-        crowDistance(x1, y1, x2, y2); //0,0 are temporary placeholders for testing
+        crowDistance(x1, y1, x2, y2);
         System.out.println("taxi: ");
         taxicabDistance(x1, y1, x2, y2);
         
@@ -35,35 +30,35 @@ public class CoordinatePlane {
 
         if(pointQuery.equals("x1")) {
             String cutX1 = points.substring(1, indicateCom);
-
             int x1 = Integer.parseInt(cutX1);
-            //System.out.println(x1);
-
             return x1;
         } else if(pointQuery.equals("y1") && getYVal == true) {
             int bp = points.indexOf(")");
             String yInd = points.substring(space+1, bp);
             int y1 = Integer.parseInt(yInd);
-            //System.out.println(yInd);
             return y1;
-        } else {
+        } 
+
+        if(moveTo2 == true) {
+            int indexSpace = points.indexOf(" ", points.indexOf(" ") + 1);
+            //System.out.println(indexSpace);
+            String cut = points.substring(indexSpace+1);
             if(moveTo2 == true || pointQuery.equals("x2")) {
-                int indexSpace = points.indexOf(" ", points.indexOf(" ") + 1);
-                String cut = points.substring(indexSpace+1);
-                String indx2 = points.substring(cut.indexOf("(")+1, cut.indexOf(","));
-                // System.out.println(indx2);
+                String indx2 = cut.substring(cut.indexOf("(")+1, cut.indexOf(","));
+                System.out.println(indx2);
                 int indX2 = Integer.parseInt(indx2);
-                // System.out.println(indX2);
                 return indX2;
-            } else if(moveTo2 == true && getYVal == true || pointQuery.equals("y2")) {
-                String indy2 = points.substring(cut.indexOf(","));
+            } 
+            if(moveTo2 == true && getYVal == true && pointQuery.equals("y2")) {
+                String indy2 = points.substring(cut.indexOf(",")+1);
+                System.out.println(indy2);
                 int indY2 = Integer.parseInt(indy2);
-                // System.out.print("y: ");
-                // System.out.println(indY2);
                 return indY2;
             } else {
-                return 0;
+                return 1;
             }
+        } else {
+            return 0;
         }
         
     }
