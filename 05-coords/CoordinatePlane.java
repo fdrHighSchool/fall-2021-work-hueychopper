@@ -5,6 +5,12 @@ import java.lang.Math;
 public class CoordinatePlane {
     public static void main(String[] args) {
         //Integer.parseInt("12"); //outputs 12 as int
+        if(args.length == 0) {
+            System.out.println("Usage: ");
+            System.out.println("for crow distance:  java CoordinatePlane.java crow");
+            System.out.println("for taxi distance:  java CoordinatePlane.java taxi");
+            System.exit(0);
+        }
         System.out.println("[!]Input format: (x1, y1) (x2, y2)");
         ArrayList storePoints = new ArrayList<Integer>();
         System.out.print("Write out you 2 points in correct format: ");
@@ -16,10 +22,14 @@ public class CoordinatePlane {
         int x2 = getPoints(points, true, false, "x2");
         int y2 = getPoints(points, true, true, "y2");
 
-        System.out.println("crow: ");
-        crowDistance(x1, y1, x2, y2);
-        System.out.println("taxi: ");
-        taxicabDistance(x1, y1, x2, y2);
+        if(args[0].equals("crow")) {
+            System.out.println("crow distance: ");
+            crowDistance(x1, y1, x2, y2);
+        } else if(args[0].equals("taxi")) {
+            taxicabDistance(x1, y1, x2, y2);
+        } else {
+            System.exit(0);
+        }
         
     }
     public static int getPoints(String points, boolean moveTo2, boolean getYVal, String pointQuery) {
@@ -41,17 +51,14 @@ public class CoordinatePlane {
 
         if(moveTo2 == true) {
             int indexSpace = points.indexOf(" ", points.indexOf(" ") + 1);
-            //System.out.println(indexSpace);
             String cut = points.substring(indexSpace+1);
             if(moveTo2 == true || pointQuery.equals("x2")) {
                 String indx2 = cut.substring(cut.indexOf("(")+1, cut.indexOf(","));
-                System.out.println(indx2);
                 int indX2 = Integer.parseInt(indx2);
                 return indX2;
             } 
             if(moveTo2 == true && getYVal == true && pointQuery.equals("y2")) {
                 String indy2 = points.substring(cut.indexOf(",")+1);
-                System.out.println(indy2);
                 int indY2 = Integer.parseInt(indy2);
                 return indY2;
             } else {
@@ -65,7 +72,6 @@ public class CoordinatePlane {
 
     public static double crowDistance(int x1, int y1, int x2, int y2) {
         double distance = Math.sqrt(Math.pow((y2 - y1), 2) + Math.pow((x2 - x1), 2));
-        // System.out.println(ptArray[0]);
         System.out.println(distance);
         return distance;
     } 
