@@ -64,13 +64,7 @@ public class CoordinatePlane {
     }
 
     public static double crowDistance(int x1, int y1, int x2, int y2) {
-        int ptArray[] = new int[4];
-        ptArray[0] = x1;
-        ptArray[1] = y1;
-        ptArray[2] = x2;
-        ptArray[3] = y2;
-
-        double distance = Math.sqrt(Math.pow((ptArray[2] - ptArray[0]), 2) + Math.pow((ptArray[3] - ptArray[1]), 2));
+        double distance = Math.sqrt(Math.pow((y2 - y1), 2) + Math.pow((x2 - x1), 2));
         // System.out.println(ptArray[0]);
         System.out.println(distance);
         return distance;
