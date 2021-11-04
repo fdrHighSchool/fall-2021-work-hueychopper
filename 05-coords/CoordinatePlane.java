@@ -4,32 +4,44 @@ import java.lang.Math;
 
 public class CoordinatePlane {
     public static void main(String[] args) {
-        //Integer.parseInt("12"); //outputs 12 as int
         if(args.length == 0) {
             System.out.println("Usage: ");
             System.out.println("for crow distance:  java CoordinatePlane.java crow");
             System.out.println("for taxi distance:  java CoordinatePlane.java taxi");
+            System.out.println("for area:           java CoordinatePlane.java area");
             System.exit(0);
         }
-        System.out.println("[!]Input format: (x1, y1) (x2, y2)");
-        System.out.print("Write out you 2 points in correct format: ");
-        Scanner sc = new Scanner(System.in);
-        String points = sc.nextLine();
 
-        int x1 = getPoints(points, false, false, "x1");
-        int y1 = getPoints(points, false, true, "y1");
-        int x2 = getPoints(points, true, false, "x2");
-        int y2 = getPoints(points, true, true, "y2");
-
-        if(args[0].equals("crow")) {
-            System.out.println("crow distance: ");
-            crowDistance(x1, y1, x2, y2);
-        } else if(args[0].equals("taxi")) {
-            taxicabDistance(x1, y1, x2, y2);
+        if(args[0].equals("area")) {
+            startProgram(false, null);
+            area();
         } else {
-            System.exit(0);
+            startProgram(true, args[0]);
         }
         
+    }
+    public static void startProgram(boolean allowRun, String checkArgs) {
+        if(allowRun == true) {
+            System.out.println("[!] Input format: (x1, y1) (x2, y2)");
+            System.out.print("Write out you 2 points in correct format: ");
+            Scanner sc = new Scanner(System.in);
+            String points = sc.nextLine();
+
+            int x1 = getPoints(points, false, false, "x1");
+            int y1 = getPoints(points, false, true, "y1");
+            int x2 = getPoints(points, true, false, "x2");
+            int y2 = getPoints(points, true, true, "y2");
+
+            if(checkArgs.equals("crow")) {
+                System.out.println("crow distance: ");
+                crowDistance(x1, y1, x2, y2);
+            } else if(checkArgs.equals("taxi")) {
+                System.out.println("taxi: ");
+                taxicabDistance(x1, y1, x2, y2);
+            } else {
+                System.exit(0);
+            }
+        }
     }
     public static int getPoints(String points, boolean moveTo2, boolean getYVal, String pointQuery) {
         int space = points.indexOf(" ");
@@ -94,7 +106,10 @@ public class CoordinatePlane {
             System.out.println("format: x, y");
             for(int i = 0; i < 4; i++) {
                 System.out.print("input point in format(only 1!): ");
-
+                Scanner sPt = new Scanner(System.in);
+                String nL = sPt.nextLine().substring(sPt.nextLine().indexOf(","));
+                storePoints.add(nL);
+                System.out.println(storePoints);
             }
         }
     }
