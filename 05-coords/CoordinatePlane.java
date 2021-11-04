@@ -6,9 +6,8 @@ public class CoordinatePlane {
     public static void main(String[] args) {
         if(args.length == 0) {
             System.out.println("Usage: ");
-            System.out.println("for crow distance:  java CoordinatePlane.java crow");
-            System.out.println("for taxi distance:  java CoordinatePlane.java taxi");
-            System.out.println("for area:           java CoordinatePlane.java area");
+            System.out.println("for distance:  java CoordinatePlane.java distance");
+            System.out.println("for area:      java CoordinatePlane.java area");
             System.exit(0);
         }
 
@@ -32,12 +31,13 @@ public class CoordinatePlane {
             int x2 = getPoints(points, true, false, "x2");
             int y2 = getPoints(points, true, true, "y2");
 
-            if(checkArgs.equals("crow")) {
+            if(checkArgs.equals("distance")) {
                 System.out.println("crow distance: ");
                 crowDistance(x1, y1, x2, y2);
-            } else if(checkArgs.equals("taxi")) {
-                System.out.println("taxi: ");
+                System.out.println("taxi distance: ");
                 taxicabDistance(x1, y1, x2, y2);
+                System.out.println("slope distance: ");
+                slope(x1, y1, x2, y2);
             } else {
                 System.exit(0);
             }
@@ -93,7 +93,8 @@ public class CoordinatePlane {
     }
 
     public static void area() {
-        ArrayList storePoints = new ArrayList<Integer>();
+        ArrayList<Integer> storeXPoints = new ArrayList<Integer>(4);
+        ArrayList<Integer> storeYPoints = new ArrayList<Integer>(4);
         System.out.println("shape options: ");
         System.out.println("[1] square");
         System.out.println("[2] circle");
@@ -107,11 +108,33 @@ public class CoordinatePlane {
             for(int i = 0; i < 4; i++) {
                 System.out.print("input point in format(only 1!): ");
                 Scanner sPt = new Scanner(System.in);
-                String nL = sPt.nextLine().substring(sPt.nextLine().indexOf(","));
-                storePoints.add(nL);
-                System.out.println(storePoints);
+                String stty1 = sPt.nextLine();
+                String nL = stty1.substring(stty1.indexOf(",")+2);
+                String nl_x = stty1.substring(0, stty1.indexOf(","));
+                int p_x = Integer.parseInt(nl_x);
+                int n_l = Integer.parseInt(nL);
+                storeXPoints.add(p_x);
+                storeYPoints.add(n_l);
+                System.out.println(storeXPoints);
+                System.out.println(storeYPoints);
             }
+            int x1 = storeXPoints.get(0);
+            int x2 = storeXPoints.get(1);
+
+            int y1 = storeYPoints.get(0);
+            int y2 = storeYPoints.get(1);
         }
+    }
+    public static double slope(double x1, double y1, double x2, double y2) {
+        if((x2 - x1) == 0) {
+            System.out.println("x2 - x1 cannot equal 0. exiting.");
+            System.exit(0);
+        } else {
+            double slope = (y2 - y1) / (x2 - x1);
+            System.out.println(slope);
+            return slope;
+        }
+        return 0.0;
     }
 }
 
