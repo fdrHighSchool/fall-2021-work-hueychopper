@@ -12,7 +12,6 @@ public class CoordinatePlane {
             System.exit(0);
         }
         System.out.println("[!]Input format: (x1, y1) (x2, y2)");
-        ArrayList storePoints = new ArrayList<Integer>();
         System.out.print("Write out you 2 points in correct format: ");
         Scanner sc = new Scanner(System.in);
         String points = sc.nextLine();
@@ -80,4 +79,28 @@ public class CoordinatePlane {
         System.out.println(distance);
         return distance;
     }
+
+    public static void area() {
+        ArrayList storePoints = new ArrayList<Integer>();
+        System.out.println("shape options: ");
+        System.out.println("[1] square");
+        System.out.println("[2] circle");
+
+        System.out.print("what shape: ");
+        Scanner sc = new Scanner(System.in);
+
+        int userResponse = sc.nextInt();
+        if(userResponse == 1) {
+            System.out.println("format: x, y");
+            for(int i = 0; i < 4; i++) {
+                System.out.print("input point in format(only 1!): ");
+
+            }
+        }
+    }
 }
+
+//TODO: check if square
+//for loop to get points
+//calulate area
+//draw square
