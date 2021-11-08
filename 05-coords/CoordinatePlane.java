@@ -120,21 +120,49 @@ public class CoordinatePlane {
             }
             int x1 = storeXPoints.get(0);
             int x2 = storeXPoints.get(1);
+            int x3 = storeXPoints.get(2);
+            int x4 = storeXPoints.get(3);
 
             int y1 = storeYPoints.get(0);
             int y2 = storeYPoints.get(1);
+            int y3 = storeYPoints.get(2);
+            int y4 = storeYPoints.get(3);
+            ////////////////////////////////
+            double distance1 = crowDistance(x1, y1, x2, y2);
+            double distance2 = crowDistance(x2, y2, x3, y3);
+            double distance3 = crowDistance(x3, y3, x4, y4);
+            double distance4 = crowDistance(x4, y4, x1, y1);
+
+            if(distance1 == distance2 && distance2 == distance3 && distance3 == distance4) {
+                System.out.println("[*] passes distance test. continue");
+                double slope1 = slope(x1, y1, x2, y2);
+                double slope2 = slope(x2, y2, x3, y3);
+                if ((slope1 * slope2 == -1) || (slope1 == Integer.MAX_VALUE && slope2 == 0)|| (slope1 == 0 && slope2 == Integer.MAX_VALUE)) {
+                    System.out.println("Is a square");
+                    draw((int)distance1);
+                }
+            } else {
+                System.out.println("[!] failed distance test. exiting");
+                System.exit(0);
+            }
         }
     }
     public static double slope(double x1, double y1, double x2, double y2) {
         if((x2 - x1) == 0) {
-            System.out.println("x2 - x1 cannot equal 0. exiting.");
-            System.exit(0);
+            return Integer.MAX_VALUE;
         } else {
             double slope = (y2 - y1) / (x2 - x1);
             System.out.println(slope);
             return slope;
         }
-        return 0.0;
+    }
+    public static void draw(int d) {
+        for (int row = 0; row < d; row++) {
+            for(int col = 0; col < d; col++) {
+                System.out.print("*  ");
+            } // end of row
+            System.out.println();
+        } // end of square
     }
 }
 
