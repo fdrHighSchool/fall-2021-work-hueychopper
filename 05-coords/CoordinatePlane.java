@@ -165,8 +165,3 @@ public class CoordinatePlane {
         } // end of square
     }
 }
-
-//TODO: check if square
-//for loop to get points
-//calulate area
-//draw square
