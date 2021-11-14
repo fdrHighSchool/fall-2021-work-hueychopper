@@ -10,6 +10,7 @@ public class Fraction {
             String fractions = sc.nextLine();
             if(fractions.equals("quit")) {
                 System.out.println("exiting...");
+                sc.close();
                 System.exit(0);
             } else {
                 reqReturns(fractions, " ");
