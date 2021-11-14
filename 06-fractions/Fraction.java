@@ -28,8 +28,8 @@ public class Fraction {
 
         System.out.println("fraction 1: ");
         cutFraction(f_1);
-        System.out.println("fraction 2: ");
-        cutFraction(f_2);
+        // System.out.println("fraction 2: ");
+        // cutFraction(f_2);
     }
     public static void cutFraction(String fractionToCut) {
         int f_s = fractionToCut.indexOf("/");
@@ -40,7 +40,7 @@ public class Fraction {
             int numerator = Integer.parseInt(fractionToCut.substring(u + 1, f_s));
             System.out.println("numerator: " + Integer.toString(numerator));
             int denom = Integer.parseInt(fractionToCut.substring(f_s + 1));
-            System.out.println("denominator: "+ Integer.toString(denom));
+            System.out.println("denominator: "+ Integer.toString(denom)+"\n");
 
             // greatestCommonDivisor(numerator, denom);
             // leastCommonMulitple(numerator, denom);
@@ -48,21 +48,57 @@ public class Fraction {
             int numerator = Integer.parseInt(fractionToCut.substring(0, f_s));
             int denom = Integer.parseInt(fractionToCut.substring(f_s+1));
             System.out.println("numerator: " + Integer.toString(numerator));
-            System.out.println("denominator: "+ Integer.toString(denom));
-            // greatestCommonDivisor(numerator, denom);
-            // leastCommonMulitple(numerator, denom);
+            System.out.println("denominator: "+ Integer.toString(denom)+"\n");
+            int gcdfrac1 = greatestCommonDivisor(numerator, denom);
+            int lcmfrac1 = leastCommonMulitple(numerator, denom);
+            System.out.println("GCD and LCM: " + Integer.toString(gcdfrac1) + "," + Integer.toString(lcmfrac1));
         }
     }
-    // public static void evaluateFractions(int whole, int num1, int den1, int num2, int den2) {
-    //     if(!wholeNum) {
-    //         System.out.println("no whole!");
-    //     } else {
-    //         //
-    //     }
-    // }
 
-    // public static int greatestCommonDivisor(int a, int b) {}
-    // public static int leastCommonMulitple(int a, int b) {}
+    public static int greatestCommonDivisor(int a, int b) {
+        //euclidean algorithm
+        //formula: a = b * quotient + remainder
+        int gcd;
+        if(a == 0) {
+            gcd = b;
+            return gcd;
+        } else if(b == 0) {
+            gcd = a;
+            return gcd;
+        } else if(a != 0 && b != 0) {
+            while(a != 0 || b != 0) {
+                int q = a / b; 
+                int r = a % b; 
+                if(b * q + r == a) {
+                    a = b; 
+                    b = r;
+                    if(a == 0 && b != 0 || b == 0 && a != 0) {
+                        if(a != 0) {
+                            gcd = a;
+                            System.out.println(gcd);
+                            return a;
+                        } else if(b != 0) {
+                            gcd = b;
+                            System.out.println(gcd);
+                            return b;
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            }
+            return 0;
+        } else {
+            System.exit(0);
+            return 0;
+        }
+    }
+    public static int leastCommonMulitple(int a, int b) {
+        int gcd = greatestCommonDivisor(a, b);
+        int lcm = Math.abs(a * b) / gcd;
+        System.out.println(lcm);
+        return lcm;
+    }
 
 }
 
