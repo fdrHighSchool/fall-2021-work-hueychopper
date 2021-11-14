@@ -15,46 +15,82 @@ public class Fraction {
         String fractions = sc.nextLine();
         System.out.println(fractions);
 
-        cutString(fractions, " ");
+        reqReturns(fractions, " ");
     }
-    public static void cutString(String fraction, String fgFind) {
+    public static void reqReturns(String fraction, String fgFind) {
         int index = fraction.indexOf(fgFind);
         String f_1 = fraction.substring(0, index);
         int space2 = fraction.indexOf(fgFind, index + 1);
         String f_2 = fraction.substring(space2 + 1);
-        String operator = fraction.substring(index, space2);
-        System.out.println(operator);
+        String operator = fraction.substring(index+1, space2);
+        System.out.println(operator); //+, *, -, /
         System.out.println(f_2);
 
-        System.out.println("fraction 1: ");
-        cutFraction(f_1);
-        // System.out.println("fraction 2: ");
-        // cutFraction(f_2);
+        int den1 = cutFraction(f_1, "den");
+        int den2 = cutFraction(f_2, "den");
+        int num1 = cutFraction(f_1, "num");
+        int num2 = cutFraction(f_2, "num");
+        // int whole = cutFraction(f_1, "whole");
+        // int whole = cutFraction(f_2, "whole");
+        // int gcd_1
+        int lcm_1 = leastCommonMulitple(den1, den2);
+        evalFractions(false, 0, operator, lcm_1, den1, den2, num1, num2);
     }
-    public static void cutFraction(String fractionToCut) {
+    public static int cutFraction(String fractionToCut, String selector) {
         int f_s = fractionToCut.indexOf("/");
         int u = fractionToCut.indexOf("_");
         if(u != -1) {
-            int wholeNum = Integer.parseInt(fractionToCut.substring(0, u));
-            System.out.println("whole: " + Integer.toString(wholeNum));
-            int numerator = Integer.parseInt(fractionToCut.substring(u + 1, f_s));
-            System.out.println("numerator: " + Integer.toString(numerator));
-            int denom = Integer.parseInt(fractionToCut.substring(f_s + 1));
-            System.out.println("denominator: "+ Integer.toString(denom)+"\n");
-
-            // greatestCommonDivisor(numerator, denom);
-            // leastCommonMulitple(numerator, denom);
+            int whole = getWhole(fractionToCut, u);
+            int num = getNumer(fractionToCut, f_s, u);
+            int den = getDenom(fractionToCut, f_s);
+            if(selector == "den") { //.equals()
+                return den;
+            } else if(selector == "num") {
+                return num;
+            } else {return whole;}
         } else {
-            int numerator = Integer.parseInt(fractionToCut.substring(0, f_s));
-            int denom = Integer.parseInt(fractionToCut.substring(f_s+1));
-            System.out.println("numerator: " + Integer.toString(numerator));
-            System.out.println("denominator: "+ Integer.toString(denom)+"\n");
-            int gcdfrac1 = greatestCommonDivisor(numerator, denom);
-            int lcmfrac1 = leastCommonMulitple(numerator, denom);
-            System.out.println("GCD and LCM: " + Integer.toString(gcdfrac1) + "," + Integer.toString(lcmfrac1));
+            int num = getNumer(fractionToCut, f_s, u);
+            int den = getDenom(fractionToCut, f_s);
+            if(selector == "den") {
+                return den;
+            } else if(selector == "num") {
+                return num;
+            } else {
+                return 0;
+            }
         }
     }
+    public static int getDenom(String pt, int cf) {
+        int denom = Integer.parseInt(pt.substring(cf + 1));
+        System.out.println("denominator: "+ Integer.toString(denom)+"\n");
+        return denom;
+    }
+    public static int getNumer(String pt, int cf, int ix) {
+        int numerator = Integer.parseInt(pt.substring(ix + 1, cf));
+        System.out.println("numerator: " + Integer.toString(numerator));
+        return numerator;
+    }
+    public static int getWhole(String pt, int index) {
+        int wholeNum = Integer.parseInt(pt.substring(0, index));
+        System.out.println("whole: " + Integer.toString(wholeNum));
+        return wholeNum;
+    }
 
+    public static void evalFractions(boolean hasWhole, int whole, String operator, int lcm, int den1, int den2, int num1, int num2) {
+        int lcd_frac1 = lcm / den1;
+        int lcd_frac2 = lcm / den2;
+        if(operator.equals("+")) {
+            int f_nr = createNewNumers(lcd_frac1, num1) + createNewNumers(lcd_frac2, num2);
+            System.out.println("No reduce: "+Integer.toString(f_nr) + "/" + Integer.toString(lcm));
+        } else if(operator.equals("-")) {
+            int f_nr = createNewNumers(lcd_frac1, num1) - createNewNumers(lcd_frac2, num2);
+            System.out.println("No reduce: "+Integer.toString(f_nr) + "/" + Integer.toString(lcm));
+        }
+    }
+    public static int createNewNumers(int lcd, int num) {
+        int spawnNewNumer = lcd * num;
+        return spawnNewNumer;
+    }
     public static int greatestCommonDivisor(int a, int b) {
         //euclidean algorithm
         //formula: a = b * quotient + remainder
@@ -93,15 +129,17 @@ public class Fraction {
             return 0;
         }
     }
-    public static int leastCommonMulitple(int a, int b) {
+    public static int leastCommonMulitple(int a, int b) { //den1, den2
         int gcd = greatestCommonDivisor(a, b);
         int lcm = Math.abs(a * b) / gcd;
         System.out.println(lcm);
         return lcm;
     }
-
 }
 
 //num1 * den2 + num2 / num1
 //num1 / num2
 //num1/den2 / den1 * num2
+
+//irregular to mixed: num / den <--whole number only; remainder over den; e.g 17/3 == 5_2/3
+//mixed to irregular: (den * whole) + numerator over den; e.g 6_4/5 == 34/5
