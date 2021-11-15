@@ -52,8 +52,15 @@ public class Fraction {
                 return num;
             } else {return whole;}
         } else {
-            int num = getNumer(fractionToCut, f_s, u);
-            int den = getDenom(fractionToCut, f_s);
+            int num;
+            int den;
+            if(f_s != -1) {
+                num = getNumer(fractionToCut, f_s, u);
+                den = getDenom(fractionToCut, f_s);
+            } else {
+                num = Integer.parseInt(fractionToCut.substring(0));
+                den = 1;
+            }
             if(selector.equals("den")) {
                 return den;
             } else if(selector.equals("num")) {
@@ -114,23 +121,27 @@ public class Fraction {
         int nD = lcd2 * num2;
         if(operator.equals("+")) {
             int fn = nN + nD;
+            System.out.println("No reduce: "+Integer.toString(fn)+"/"+Integer.toString(lcm));
             int gcd = greatestCommonDivisor(fn, lcm);
             String finalF = mkReduceNW(gcd, fn, lcm);
             convertToMixed(cutFraction(finalF, "num"), cutFraction(finalF, "den"));
         } else if(operator.equals("-")) {
             int fn = nN - nD;
+            System.out.println("No reduce: "+Integer.toString(fn)+"/"+Integer.toString(lcm));
             int gcd = greatestCommonDivisor(fn, lcm);
             String finalF = mkReduceNW(gcd, fn, lcm);
             convertToMixed(cutFraction(finalF, "num"), cutFraction(finalF, "den"));
         } else if(operator.equals("*")) {
             int nN_t = num1 * num2;
             int nD_t = den1 * den2;
+            System.out.println("No reduce: "+Integer.toString(nN_t)+"/"+Integer.toString(nD_t));
             int gcd = greatestCommonDivisor(nN_t, nD_t);
             String finalF = mkReduceNW(gcd, nN_t, nD_t);
             convertToMixed(cutFraction(finalF, "num"), cutFraction(finalF, "den"));
         } else if(operator.equals("/")) {
             int nN_t = num1 * den2;
             int nD_t = den1 * num2;
+            System.out.println("No reduce: "+Integer.toString(nN_t)+"/"+Integer.toString(nD_t));
             int gcd = greatestCommonDivisor(nN_t, nD_t);
             String finalF = mkReduceNW(gcd, nN_t, nD_t);
             convertToMixed(cutFraction(finalF, "num"), cutFraction(finalF, "den"));
