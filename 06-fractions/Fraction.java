@@ -196,6 +196,7 @@ public class Fraction {
             return 0;
         }
     }
+    
     public static int leastCommonMulitple(int a, int b) { //den1, den2
         int gcd = greatestCommonDivisor(a, b);
         int lcm = Math.abs(a * b) / gcd;
