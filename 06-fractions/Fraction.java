@@ -65,9 +65,7 @@ public class Fraction {
                 return den;
             } else if(selector.equals("num")) {
                 return num;
-            } else {
-                return 0;
-            }
+            } else {return 0;}
         }
     }
     public static int getDenom(String pt, int cf) {
