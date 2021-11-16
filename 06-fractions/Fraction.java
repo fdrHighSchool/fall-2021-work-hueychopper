@@ -5,7 +5,7 @@ public class Fraction {
     public static void main(String[] args) {
         boolean done = false;
         while(true) {
-            System.out.print("prompt :[entire]$ ");
+            System.out.print("prompt::[entire]$ ");
             Scanner sc = new Scanner(System.in);
             String fractions = sc.nextLine();
             if(fractions.equals("quit")) {
@@ -18,7 +18,6 @@ public class Fraction {
         }
     }
     public static void reqReturns(String fraction, String fgFind) {
-        boolean isMixed;
         int index = fraction.indexOf(fgFind);//" "
         String f_1 = fraction.substring(0, index);//fraction 1
         int space2 = fraction.indexOf(fgFind, index + 1); //space behind operator
@@ -163,31 +162,31 @@ public class Fraction {
         System.out.println("Reduced: " + Integer.toString(nN)+"/"+Integer.toString(nD));
         return Integer.toString(nN)+"/"+Integer.toString(nD);
     }
-    public static int greatestCommonDivisor(int a, int b) {
+    public static int greatestCommonDivisor(int a, int b) { //numerator, denominator
         //euclidean algorithm
         int gcd;
         if(a == 0) {
-            gcd = b;
+            gcd = b; //if a is 0 then b is the GCF
             return gcd;
         } else if(b == 0) {
-            gcd = a;
+            gcd = a; //if b is 0 then a is the GCF
             return gcd;
-        } else if(a != 0 && b != 0) {
-            while(a != 0 || b != 0) {
-                int q = a / b; 
-                int r = a % b; 
-                if(b * q + r == a) {
-                    a = b; 
-                    b = r;
-                    if(a == 0 && b != 0 || b == 0 && a != 0) {
-                        if(a != 0) {
+        } else if(a != 0 && b != 0) { //if none are 0 we must solve for the GCF
+            while(a != 0 || b != 0) { //loop until a or b is 0 in which case, the other that isn't 0 is the GCF
+                int q = a / b; //get quotient of these two params
+                int r = a % b; //get remainder with modulo
+                if(b * q + r == a) { //accroding to the formula a has to be equal to b*q+r in order to find GCF
+                    a = b; //reduce a to b
+                    b = r; //set b to remainder so next loop a will get former r and b will be new r
+                    if(a == 0 && b != 0 || b == 0 && a != 0) { //check if loop has reduced a or b to 0
+                        if(a != 0) { //b is 0
                             gcd = a;
                             return a;
-                        } else if(b != 0) {
+                        } else if(b != 0) { //a is 0
                             gcd = b;
                             return b;
                         } else {
-                            break;
+                            break; //exit loop return nothing
                         }
                     }
                 }
