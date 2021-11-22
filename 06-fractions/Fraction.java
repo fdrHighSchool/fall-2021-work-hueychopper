@@ -1,9 +1,13 @@
+//TODO: multi-operations, error handling(divide by zero);
+
 import java.util.*;
 import java.lang.Math;
 
 public class Fraction {
     public static void main(String[] args) {
-        boolean done = false;
+        mainThreadLoop();
+    }
+    public static void mainThreadLoop() {
         while(true) {
             System.out.print("prompt::[entire]$ ");
             Scanner sc = new Scanner(System.in);
@@ -32,12 +36,28 @@ public class Fraction {
         int whole2 = cutFraction(f_2, "whole");
         int lcm_1 = leastCommonMulitple(den1, den2);
 
+        // if(f_1.indexOf("√") != -1) {
+        //     if(f_1.indexOf("√") < f_1.indexOf("/")) {
+        //         double rt = Math.sqrt();
+        //     }
+        // }
+
         if(f_1.indexOf("_") != -1 || f_2.indexOf("_") != -1) {
             evalFractions(true, operator, lcm_1, den1, den2, num1, num2, whole1, whole2);
         } else {
             evalFractions(false, operator, lcm_1, den1, den2, num1, num2, whole1, whole2);
         }
     }
+    // public static boolean checkSquare(int num) {
+    //     double square = Math.sqrt(num1);
+    //     if((square - Math.floor(square)) == 0) {
+    //         System.out.println("is a square");
+    //         return true;
+    //     } else {
+    //         System.out.println("not a square");
+    //         return false;
+    //     }
+    // }
     public static int cutFraction(String fractionToCut, String selector) {
         int f_s = fractionToCut.indexOf("/");
         int u = fractionToCut.indexOf("_");
@@ -114,47 +134,64 @@ public class Fraction {
         }
     }
     public static void checkOperations(String operator, int lcm, int num1, int num2, int den1, int den2) {
-        int lcd1 = lcm / den1;
-        int lcd2 = lcm / den2;
-        int nN = lcd1 * num1;
-        int nD = lcd2 * num2;
-        if(operator.equals("+")) {
-            int fn = nN + nD;
-            System.out.println("No reduce: "+Integer.toString(fn)+"/"+Integer.toString(lcm));
-            int gcd = greatestCommonDivisor(fn, lcm);
-            String finalF = mkReduceNW(gcd, fn, lcm);
-            convertToMixed(cutFraction(finalF, "num"), cutFraction(finalF, "den"));
-        } else if(operator.equals("-")) {
-            int fn = nN - nD;
-            System.out.println("No reduce: "+Integer.toString(fn)+"/"+Integer.toString(lcm));
-            int gcd = greatestCommonDivisor(fn, lcm);
-            String finalF = mkReduceNW(gcd, fn, lcm);
-            convertToMixed(cutFraction(finalF, "num"), cutFraction(finalF, "den"));
-        } else if(operator.equals("*")) {
-            int nN_t = num1 * num2;
-            int nD_t = den1 * den2;
-            System.out.println("No reduce: "+Integer.toString(nN_t)+"/"+Integer.toString(nD_t));
-            int gcd = greatestCommonDivisor(nN_t, nD_t);
-            String finalF = mkReduceNW(gcd, nN_t, nD_t);
-            convertToMixed(cutFraction(finalF, "num"), cutFraction(finalF, "den"));
-        } else if(operator.equals("/")) {
-            int nN_t = num1 * den2;
-            int nD_t = den1 * num2;
-            System.out.println("No reduce: "+Integer.toString(nN_t)+"/"+Integer.toString(nD_t));
-            int gcd = greatestCommonDivisor(nN_t, nD_t);
-            String finalF = mkReduceNW(gcd, nN_t, nD_t);
-            convertToMixed(cutFraction(finalF, "num"), cutFraction(finalF, "den"));
+        try {
+            int lcd1 = lcm / den1;
+            int lcd2 = lcm / den2;
+            int nN = lcd1 * num1;
+            int nD = lcd2 * num2;
+            if(operator.equals("+")) {
+                int fn = nN + nD;
+                System.out.println("No reduce: "+Integer.toString(fn)+"/"+Integer.toString(lcm));
+                int gcd = greatestCommonDivisor(fn, lcm);
+                String finalF = mkReduceNW(gcd, fn, lcm);
+                convertToMixed(cutFraction(finalF, "num"), cutFraction(finalF, "den"));
+            } else if(operator.equals("-")) {
+                int fn = nN - nD;
+                System.out.println("No reduce: "+Integer.toString(fn)+"/"+Integer.toString(lcm));
+                int gcd = greatestCommonDivisor(fn, lcm);
+                String finalF = mkReduceNW(gcd, fn, lcm);
+                convertToMixed(cutFraction(finalF, "num"), cutFraction(finalF, "den"));
+            } else if(operator.equals("*")) {
+                int nN_t = num1 * num2;
+                int nD_t = den1 * den2;
+                System.out.println("No reduce: "+Integer.toString(nN_t)+"/"+Integer.toString(nD_t));
+                int gcd = greatestCommonDivisor(nN_t, nD_t);
+                String finalF = mkReduceNW(gcd, nN_t, nD_t);
+                convertToMixed(cutFraction(finalF, "num"), cutFraction(finalF, "den"));
+            } else if(operator.equals("/")) {
+                int nN_t = num1 * den2;
+                int nD_t = den1 * num2;
+                System.out.println("No reduce: "+Integer.toString(nN_t)+"/"+Integer.toString(nD_t));
+                int gcd = greatestCommonDivisor(nN_t, nD_t);
+                String finalF = mkReduceNW(gcd, nN_t, nD_t);
+                convertToMixed(cutFraction(finalF, "num"), cutFraction(finalF, "den"));
+            }
+        } catch(Exception e) {
+            System.out.println("Invalid operation. Can't divide by zero");
+            mainThreadLoop();
         }
     }
     public static String convertToIrregular(int whole, int num, int den) {
         int nN = (den * whole) + num;
-        System.out.println("conversion[m:i] "+Integer.toString(nN)+"/"+Integer.toString(den));
-        return Integer.toString(nN)+"/"+Integer.toString(den);
+        if(num == 0 && whole == 0) {
+            System.out.println("conversion[m:i] 0");
+            return "0";
+        } else if(num == 0) {
+            System.out.println("conversion[m:i] "+Integer.toString(whole));
+            return Integer.toString(whole);
+        } else {
+            System.out.println("conversion[m:i] "+Integer.toString(nN)+"/"+Integer.toString(den));
+            return Integer.toString(nN)+"/"+Integer.toString(den);
+        }
     }
     public static void convertToMixed(int num, int den) {
         int nW = num / den;
         int r = num % den;
-        System.out.println("conversion[i:m] "+Integer.toString(nW)+"_"+Integer.toString(r)+"/"+Integer.toString(den));
+        if(r == 0) {
+            convertToIrregular(nW, r, den);  //√
+        } else {
+            System.out.println("conversion[i:m] "+Integer.toString(nW)+"_"+Integer.toString(r)+"/"+Integer.toString(den));
+        }
     }
     public static String mkReduceNW(int gcd, int num, int den) {
         int nN = num / gcd;
