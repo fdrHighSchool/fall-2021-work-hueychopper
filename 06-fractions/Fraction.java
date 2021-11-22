@@ -12,6 +12,7 @@ public class Fraction {
             System.out.print("prompt::[entire]$ ");
             Scanner sc = new Scanner(System.in);
             String fractions = sc.nextLine();
+            checkMultiOps(fractions, '+');
             if(fractions.equals("quit")) {
                 System.out.println("exiting...");
                 sc.close();
@@ -20,6 +21,13 @@ public class Fraction {
                 reqReturns(fractions, " ");
             }
         }
+    }
+    public static void checkMultiOps(String fractions, char ch) {
+        // int count = 0;
+        // for(int i = 0; (i <= fractions.indexOf(ch)); i++) {
+        //     count++;
+        // }
+        // System.out.println(count);
     }
     public static void reqReturns(String fraction, String fgFind) {
         int index = fraction.indexOf(fgFind);//" "
