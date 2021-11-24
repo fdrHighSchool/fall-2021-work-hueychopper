@@ -1,5 +1,3 @@
-//TODO: multi-operations, error handling(divide by zero);
-
 import java.util.*;
 import java.lang.Math;
 
@@ -22,13 +20,6 @@ public class Fraction {
             }
         }
     }
-    public static void checkMultiOps(String fractions, char ch) {
-        // int count = 0;
-        // for(int i = 0; (i <= fractions.indexOf(ch)); i++) {
-        //     count++;
-        // }
-        // System.out.println(count);
-    }
     public static void reqReturns(String fraction, String fgFind) {
         int index = fraction.indexOf(fgFind);//" "
         String f_1 = fraction.substring(0, index);//fraction 1
@@ -44,28 +35,12 @@ public class Fraction {
         int whole2 = cutFraction(f_2, "whole");
         int lcm_1 = leastCommonMulitple(den1, den2);
 
-        // if(f_1.indexOf("√") != -1) {
-        //     if(f_1.indexOf("√") < f_1.indexOf("/")) {
-        //         double rt = Math.sqrt();
-        //     }
-        // }
-
         if(f_1.indexOf("_") != -1 || f_2.indexOf("_") != -1) {
             evalFractions(true, operator, lcm_1, den1, den2, num1, num2, whole1, whole2);
         } else {
             evalFractions(false, operator, lcm_1, den1, den2, num1, num2, whole1, whole2);
         }
     }
-    // public static boolean checkSquare(int num) {
-    //     double square = Math.sqrt(num1);
-    //     if((square - Math.floor(square)) == 0) {
-    //         System.out.println("is a square");
-    //         return true;
-    //     } else {
-    //         System.out.println("not a square");
-    //         return false;
-    //     }
-    // }
     public static int cutFraction(String fractionToCut, String selector) {
         int f_s = fractionToCut.indexOf("/");
         int u = fractionToCut.indexOf("_");
@@ -99,17 +74,14 @@ public class Fraction {
     }
     public static int getDenom(String pt, int cf) {
         int denom = Integer.parseInt(pt.substring(cf + 1));
-        // System.out.println("denominator: "+ Integer.toString(denom)+"\n");
         return denom;
     }
     public static int getNumer(String pt, int cf, int ix) {
         int numerator = Integer.parseInt(pt.substring(ix + 1, cf));
-        // System.out.println("numerator: " + Integer.toString(numerator));
         return numerator;
     }
     public static int getWhole(String pt, int index) {
         int wholeNum = Integer.parseInt(pt.substring(0, index));
-        // System.out.println("whole: " + Integer.toString(wholeNum));
         return wholeNum;
     }
 
