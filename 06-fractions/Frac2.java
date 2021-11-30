@@ -74,8 +74,8 @@ public class Fraction {
             wholes.add(whole);
             numers.add(num);
             denoms.add(den);
-            evalFractions(freshFractions, ops, numers, denoms, wholes);
         }
+        evalFractions(freshFractions, ops, numers, denoms, wholes);
     }
     public static int getDenom(String pt, int cf) {
         int denom = Integer.parseInt(pt.substring(cf + 1));
@@ -105,18 +105,40 @@ public class Fraction {
                     nums.set(i, getNumer(impFrac, impFrac.indexOf("/"), impFrac.indexOf("_")));
                 }
             }
+            int lcm = leastCommonMulitple(dens);
+            checkOps(ops, nums, dens, lcm);
     }
     public static void checkOps(
         ArrayList<String> ops,
         ArrayList<Integer> nums,
-        ArrayList<Integer> dens
+        ArrayList<Integer> dens,
+        int lcm
     ) {
-        System.out.println("check ops pass");
+        ArrayList<Integer> newNumVals = new ArrayList<Integer>();
+        ArrayList<Integer> newDenVals = new ArrayList<Integer>();
+        int total = 0;
+        if(nums.size() == dens.size()) {
+            for(int i = 0; i < nums.size(); i++) {
+                int lcd = lcm / dens.get(i);
+                int nN = lcd * nums.get(i); newNumVals.add(nN);
+                int nD = lcd * dens.get(i); newDenVals.add(nD);
+                
+            }
+            for(int num : newNumVals) {
+                total += num;
+                //TODO: reduce
+            }
+            System.out.println("fraction: "+Integer.toString(total)+"/"+Integer.toString(lcm));
+        }
     }
     public static String convertToIrregular(int whole, int num, int den) {
         int nN = (den * whole) + num;
         System.out.println("conversion[m:i]: "+Integer.toString(nN)+"/"+Integer.toString(den));
         return Integer.toString(nN)+"/"+Integer.toString(den);
+    }
+    public static void mkReduce(int num, int den, int gcd) {
+        int nN = num / gcd; int nD = den / gcd;
+        System.out.println("reduced: "+Integer.toString(nN)+"/"+Integer.toString(nD));
     }
 
 
@@ -155,9 +177,27 @@ public class Fraction {
             return 0;
         }
     }
-    public static int leastCommonMulitple(int a, int b) { //den1, den2
-        int gcd = greatestCommonDivisor(a, b);
-        int lcm = Math.abs(a * b) / gcd;
+    public static int leastCommonMulitple(ArrayList<Integer> dens) {
+        int lcm = 0;
+        for(int i = 0; i < dens.size(); i++) {
+            int lcmP = 0;
+            try {
+                if(dens.size() <= 2) {
+                    int gcd = greatestCommonDivisor(dens.get(i), dens.get(i+1));
+                    int lcmi = Math.abs(dens.get(i) * dens.get(i+1)) / gcd;
+                    lcmP = lcmi; lcm = lcmP;
+                } else {
+                    int gcd = greatestCommonDivisor(dens.get(i), dens.get(i+1));
+                    int lcmi = Math.abs(dens.get(i) * dens.get(i+1)) / gcd;
+                    int gcdu = greatestCommonDivisor(lcmi, dens.get(i+2));
+                    int lcmf = Math.abs(dens.get(i+2) * lcmi) / gcdu;
+                    lcmP = lcmf; lcm = lcmP;
+                }
+            } catch(Exception e) {
+                System.out.println();
+            }
+        }
+        System.out.println("lcm: "+Integer.toString(lcm));
         return lcm;
     }
 }
