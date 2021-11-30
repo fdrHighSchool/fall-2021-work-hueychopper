@@ -39,8 +39,6 @@ public class Fraction {
         cutFraction(fractions);
     }
     public static void cutFraction(ArrayList<String> freshFractions) {
-        //corresponding numerators and denominators
-        //undecided whole numbers\
         ArrayList<Integer> wholes = new ArrayList<Integer>();
         ArrayList<Integer> numers = new ArrayList<Integer>();
         ArrayList<Integer> denoms = new ArrayList<Integer>();
@@ -49,7 +47,6 @@ public class Fraction {
             if(freshFractions.get(i).contains("+") || freshFractions.get(i).contains("-")) {
                 ops.add(freshFractions.get(i));
                 freshFractions.remove(i);
-                // System.out.println(freshFractions);
             }
         }
         for(int s = 0; s < freshFractions.size(); s++) {
@@ -124,11 +121,42 @@ public class Fraction {
                 int nD = lcd * dens.get(i); newDenVals.add(nD);
                 
             }
-            for(int num : newNumVals) {
-                total += num;
-                //TODO: reduce
+            if(ops.size() == 1) {
+                if(ops.get(0).equals("+")) {
+                    for(int num : newNumVals) {
+                        System.out.println("true");
+                        total += num;
+                        System.out.println(mkReduce(total, lcm, greatestCommonDivisor(total, lcm)));
+                    }
+                } else if(ops.get(0).equals("-")) {
+                    int nn =  (nums.get(0) * dens.get(1)) - (nums.get(1) * dens.get(0));
+                    int nd = (dens.get(0) * dens.get(1));
+                    System.out.println("fraction: "+Integer.toString(nn)+"/"+Integer.toString(nd));
+                    System.out.println(mkReduce(nn, nd, greatestCommonDivisor(nn, nd)));
+                } else if(ops.get(0).equals("*")) {
+                    int nn = (nums.get(0) * nums.get(1));
+                    int nd = (dens.get(0) * dens.get(1));
+                    System.out.println("fraction: "+Integer.toString(nn)+"/"+Integer.toString(nd));
+                    System.out.println(mkReduce(nn, nd, greatestCommonDivisor(nn, nd)));
+                } else {
+                    int nn = (nums.get(0) * dens.get(1));
+                    int nd = (nums.get(1) * dens.get(0));
+                    System.out.println("fraction: "+Integer.toString(nn)+"/"+Integer.toString(nd));
+                    System.out.println(mkReduce(nn, nd, greatestCommonDivisor(nn, nd)));
+                }
+            } else {
+                System.out.println();
+                //substract
+                // for(int x = 0; x < newNumVals.size(); x++) {
+                //     try {
+                //         total = newNumVals.get(x)-newNumVals.get(x+1);
+                //         System.out.println("fraction: "+Integer.toString(total)+"/"+Integer.toString(lcm));
+                //         System.out.println(mkReduce(total, lcm, greatestCommonDivisor(total, lcm)));
+                //     } catch(Exception e) {
+                //         System.out.println();
+                //     }
+                // }
             }
-            System.out.println("fraction: "+Integer.toString(total)+"/"+Integer.toString(lcm));
         }
     }
     public static String convertToIrregular(int whole, int num, int den) {
@@ -136,9 +164,9 @@ public class Fraction {
         System.out.println("conversion[m:i]: "+Integer.toString(nN)+"/"+Integer.toString(den));
         return Integer.toString(nN)+"/"+Integer.toString(den);
     }
-    public static void mkReduce(int num, int den, int gcd) {
+    public static String mkReduce(int num, int den, int gcd) {
         int nN = num / gcd; int nD = den / gcd;
-        System.out.println("reduced: "+Integer.toString(nN)+"/"+Integer.toString(nD));
+        return Integer.toString(nN)+"/"+Integer.toString(nD);
     }
 
 
