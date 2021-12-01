@@ -21,6 +21,7 @@ public class Fraction {
     }
     public static void reqReturns(String fraction) {
         //cut fraction, get all seperate fraction
+        ArrayList<String> fractionOrigin = new ArrayList<String>();
         ArrayList<String> fractions = new ArrayList<String>();
         ArrayList<Integer> space = new ArrayList<Integer>();
         for(int i = 0; i < fraction.length(); i++) {
@@ -31,14 +32,15 @@ public class Fraction {
         for(int j = 0; j < space.size(); j++) {
             try {
                 String newFrac = fraction.substring(space.get(j)+1, space.get(j+1));
+                fractionOrigin.add(newFrac);
                 fractions.add(newFrac);
             } catch(Exception e) {
                 System.out.println("");
             }
         }
-        cutFraction(fractions);
+        cutFraction(fractions, fractionOrigin);
     }
-    public static void cutFraction(ArrayList<String> freshFractions) {
+    public static void cutFraction(ArrayList<String> freshFractions, ArrayList<String> originals) {
         ArrayList<Integer> wholes = new ArrayList<Integer>();
         ArrayList<Integer> numers = new ArrayList<Integer>();
         ArrayList<Integer> denoms = new ArrayList<Integer>();
@@ -80,7 +82,7 @@ public class Fraction {
         System.out.println(wholes);
         System.out.println(numers);
         System.out.println(denoms);
-        evalFractions(freshFractions, ops, numers, denoms, wholes);
+        evalFractions(freshFractions, ops, numers, denoms, wholes, originals);
     }
     public static int getDenom(String pt, int cf) {
         int denom = Integer.parseInt(pt.substring(cf + 1));
@@ -99,10 +101,10 @@ public class Fraction {
     }
 
     public static void evalFractions(
-        ArrayList<String> fracton,
+        ArrayList<String> fraction,
         ArrayList<String> ops, 
         ArrayList<Integer> nums, 
-        ArrayList<Integer> dens, ArrayList<Integer> whole) {
+        ArrayList<Integer> dens, ArrayList<Integer> whole, ArrayList<String> origins) {
             for(int i = 0; i < whole.size(); i++) {
                 String impFrac = convertToIrregular(whole.get(i), nums.get(i), dens.get(i));
                 if(whole.get(i) != 0) {
@@ -111,14 +113,16 @@ public class Fraction {
                 }
             }
             int lcm = leastCommonMulitple(dens);
-            checkOps(ops, nums, dens, lcm);
+            if(ops.size() == 1) {
+                checkOps(fraction,ops, nums, dens, lcm, 0, origins);
+            } else if(ops.size() >= 2) {
+                for(int i = 0; i < ops.size(); i++) {
+                    checkOps(fraction,ops, nums, dens, lcm, i, origins);
+                }
+            }
     }
-    public static void checkOps(
-        ArrayList<String> ops,
-        ArrayList<Integer> nums,
-        ArrayList<Integer> dens,
-        int lcm
-    ) {
+    public static void checkOps(ArrayList<String> fraction, ArrayList<String> ops,
+    ArrayList<Integer> nums,ArrayList<Integer> dens,int lcm,int specialIndex,ArrayList<String> origins) {
         ArrayList<Integer> newNumVals = new ArrayList<Integer>();
         ArrayList<Integer> newDenVals = new ArrayList<Integer>();
         int total = 0;
@@ -127,44 +131,43 @@ public class Fraction {
                 int lcd = lcm / dens.get(i);
                 int nN = lcd * nums.get(i); newNumVals.add(nN);
                 int nD = lcd * dens.get(i); newDenVals.add(nD);
-                
             }
-            if(ops.size() == 1) {
-                if(ops.get(0).equals("+")) {
-                    for(int num : newNumVals) {
-                        System.out.println("true");
-                        total += num;
-                        System.out.println(mkReduce(total, lcm, greatestCommonDivisor(total, lcm)));
-                    }
-                } else if(ops.get(0).equals("-")) {
-                    int nn =  (nums.get(0) * dens.get(1)) - (nums.get(1) * dens.get(0));
-                    int nd = (dens.get(0) * dens.get(1));
-                    System.out.println("fraction: "+Integer.toString(nn)+"/"+Integer.toString(nd));
-                    System.out.println(mkReduce(nn, nd, greatestCommonDivisor(nn, nd)));
-                } else if(ops.get(0).equals("*")) {
-                    int nn = (nums.get(0) * nums.get(1));
-                    int nd = (dens.get(0) * dens.get(1));
-                    System.out.println("fraction: "+Integer.toString(nn)+"/"+Integer.toString(nd));
+            if(ops.get(specialIndex).equals("+")) {
+                for(int num : newNumVals) {
+                    System.out.println("true");
+                    total += num;
+                    System.out.println(mkReduce(total, lcm, greatestCommonDivisor(total, lcm)));
+                }
+            } else if(ops.get(specialIndex).equals("-")) {
+                if(ops.size() == 1) {
+                    int nn =  (nums.get(specialIndex) * dens.get(specialIndex+1)) - (nums.get(specialIndex+1) * dens.get(specialIndex));
+                    int nd = (dens.get(specialIndex) * dens.get(specialIndex+1));
                     System.out.println(mkReduce(nn, nd, greatestCommonDivisor(nn, nd)));
                 } else {
-                    int nn = (nums.get(0) * dens.get(1));
-                    int nd = (nums.get(1) * dens.get(0));
-                    System.out.println("fraction: "+Integer.toString(nn)+"/"+Integer.toString(nd));
-                    System.out.println(mkReduce(nn, nd, greatestCommonDivisor(nn, nd)));
+                    for(int x = 0; x < newNumVals.size(); x++) {
+                        try {
+                            total = newNumVals.get(x)-newNumVals.get(x+1);
+                            System.out.println("fraction: "+Integer.toString(total)+"/"+Integer.toString(lcm));
+                            System.out.println(mkReduce(total, lcm, greatestCommonDivisor(total, lcm)));
+                        } catch(Exception e) {
+                            System.out.println();
+                        }
+                    }
                 }
+            } else if(ops.get(specialIndex).equals("*")) {
+                int nn = (nums.get(specialIndex) * nums.get(specialIndex+1));
+                int nd = (dens.get(specialIndex) * dens.get(specialIndex+1));
+                System.out.println(mkReduce(nn, nd, greatestCommonDivisor(nn, nd)));
             } else {
-                System.out.println();
-                //substract
-                // for(int x = 0; x < newNumVals.size(); x++) {
-                //     try {
-                //         total = newNumVals.get(x)-newNumVals.get(x+1);
-                //         System.out.println("fraction: "+Integer.toString(total)+"/"+Integer.toString(lcm));
-                //         System.out.println(mkReduce(total, lcm, greatestCommonDivisor(total, lcm)));
-                //     } catch(Exception e) {
-                //         System.out.println();
-                //     }
-                // }
+                int nn = (nums.get(specialIndex) * dens.get(specialIndex+1));
+                int nd = (nums.get(specialIndex+1) * dens.get(specialIndex));
+                System.out.println(mkReduce(nn, nd, greatestCommonDivisor(nn, nd)));
             }
+            //startup of different operations in multi-fraction calculations
+            //int nn1, int nn2;
+            // nn1 = newNumVals.get(0) + newNumVals.get(1);
+            // nn2 = nn1 - newNumVals.get(2);
+            // System.out.println("answer: "+Integer.toString(nn2)+"/"+Integer.toString(lcm));
         }
     }
     public static String convertToIrregular(int whole, int num, int den) {
