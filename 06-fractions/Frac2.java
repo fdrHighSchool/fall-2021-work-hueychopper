@@ -15,11 +15,11 @@ public class Fraction {
                 sc.close();
                 System.exit(0);
             } else {
-                reqReturns(fractions, " +");
+                reqReturns(fractions);
             }
         }
     }
-    public static void reqReturns(String fraction, String fgFind) {
+    public static void reqReturns(String fraction) {
         //cut fraction, get all seperate fraction
         ArrayList<String> fractions = new ArrayList<String>();
         ArrayList<Integer> space = new ArrayList<Integer>();
@@ -44,15 +44,18 @@ public class Fraction {
         ArrayList<Integer> denoms = new ArrayList<Integer>();
         ArrayList<String> ops = new ArrayList<String>();
         for(int i = 0; i < freshFractions.size(); i++) {
-            if(freshFractions.get(i).contains("+") || freshFractions.get(i).contains("-")) {
+            if(freshFractions.get(i).contains("+") || freshFractions.get(i).contains("-") || 
+            freshFractions.get(i).contains("*")) {
                 ops.add(freshFractions.get(i));
                 freshFractions.remove(i);
             }
         }
+        System.out.println(freshFractions);
         for(int s = 0; s < freshFractions.size(); s++) {
             int f_s = freshFractions.get(s).indexOf("/");
             int u = freshFractions.get(s).indexOf("_");
-            int num, den, whole;
+            int num,den,whole;
+            // int num = 0; int den = 0; int whole = 0;
             if(u != -1) {
                 whole = getWhole(freshFractions.get(s), u);
                 num = getNumer(freshFractions.get(s), f_s, u);
@@ -62,9 +65,11 @@ public class Fraction {
                     whole = 0;
                     num = getNumer(freshFractions.get(s), f_s, u);
                     den = getDenom(freshFractions.get(s), f_s);
+                    // num = numc; den = denc; whole = wholec;
                 } else {
                     whole = 0;
                     num = Integer.parseInt(freshFractions.get(s).substring(0));
+                    System.out.println(num);
                     den = 1;
                 }
             }
@@ -72,6 +77,9 @@ public class Fraction {
             numers.add(num);
             denoms.add(den);
         }
+        System.out.println(wholes);
+        System.out.println(numers);
+        System.out.println(denoms);
         evalFractions(freshFractions, ops, numers, denoms, wholes);
     }
     public static int getDenom(String pt, int cf) {
