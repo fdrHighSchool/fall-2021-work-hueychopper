@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Mode {
     public static void main(String[] args) {
-        int[] data = new int[] {0,0,0,6};
+        int[] data = new int[] {100,95,90,95};
         int len = data.length;
         int f = mostFrequent(data, len);
         System.out.println("final answer mode is: "+f);
