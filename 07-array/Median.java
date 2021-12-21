@@ -11,7 +11,7 @@ public class Median {
             System.out.println("median: "+med);
         } else {
             median = data[data.length/2];
-            System.out.println("median: "+median);   
+            System.out.println("median: "+median); 
         }
     }
 }
