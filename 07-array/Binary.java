@@ -1,7 +1,9 @@
 import java.util.*;
 public class Binary {
     public static void main(String[] args) {
-        convert("1001001");
+        Scanner sc = new Scanner(System.in);
+        convert(sc.nextLine());
+        sc.close();
     }
     public static void convert(String bin) {
         int[] binContainer = new int[bin.length()];
