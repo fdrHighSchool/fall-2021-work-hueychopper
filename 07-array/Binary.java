@@ -13,7 +13,7 @@ public class Binary {
         int[] binContainer = new int[bin.length()];
         int current = 0;
         for (int i = binContainer.length-1; i > -1; i--) {
-            binContainer[i] = Character.getNumericValue(bin.charAt(current++)); //reverse array, better last commit
+            binContainer[i] = Character.getNumericValue(bin.charAt(current++)); //reverse array, auto char to int. 
         }
         int total = 0;
         for(int i = 0; i < binContainer.length; i++) {
