@@ -1,24 +1,24 @@
 import java.util.*;
 public class Binary {
     public static void main(String[] args) {
+        boolean a = true;
         Scanner sc = new Scanner(System.in);
-        convert(sc.nextLine());
+        while(a) {
+            System.out.print("enter binary: ");
+            convert(sc.nextLine());
+        } 
         sc.close();
     }
     public static void convert(String bin) {
         int[] binContainer = new int[bin.length()];
-        for (int i = 0; i < bin.length(); i++) {
-            char fbin = bin.charAt(i); 
-            String f2bin = Integer.toString(fbin);//ASC11 charachters?
-            binContainer[i] = Integer.parseInt(f2bin)-48;
+        int current = 0;
+        for (int i = binContainer.length-1; i > -1; i--) {
+            binContainer[i] = Character.getNumericValue(bin.charAt(current++)); //reverse array, better last commit
         }
-        ArrayList<Integer> reversed = new ArrayList<Integer>();
-        System.out.println(Arrays.toString(binContainer));
-        for(int i = bin.length()-1; i > -1; i--) { reversed.add(binContainer[i]);}
         int total = 0;
-        for(int x = 0; x < reversed.size(); x++) {
-            if(reversed.get(x) != 0) {
-                int power = (int)Math.pow(2,x);
+        for(int i = 0; i < binContainer.length; i++) {
+            if(binContainer[i] != 0) {
+                int power = (int)Math.pow(2,i);
                 total += power;
             }
         }
