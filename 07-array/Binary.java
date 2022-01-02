@@ -12,11 +12,9 @@ public class Binary {
     public static void convert(String bin) {
         int[] binContainer = new int[bin.length()];
         int current = 0;
+        int total = 0;
         for (int i = binContainer.length-1; i > -1; i--) {
             binContainer[i] = Character.getNumericValue(bin.charAt(current++)); //reverse array, better last commit
-        }
-        int total = 0;
-        for(int i = 0; i < binContainer.length; i++) {
             if(binContainer[i] != 0) {
                 int power = (int)Math.pow(2,i);
                 total += power;
