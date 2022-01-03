@@ -4,14 +4,13 @@ public class Mode {
     public static void main(String[] args) {
         int[] data = new int[] {100,95,90,95};
         int len = data.length;
-        int f = mostFrequent(data, len);
-        System.out.println("final answer mode is: "+f);
+        System.out.println("final answer mode is: "+mostFrequent(data, len));
     }
     public static int mostFrequent(int arr[], int n){
         // Arrays.sort(arr);
         int max = 0;
         int cn = arr[0];
-        
+
         int[] freq = new int[find(arr)+1];
         try {
             for(int i = 0; i < n; i++) {
