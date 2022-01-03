@@ -14,7 +14,7 @@ public class Binary {
         int current = 0;
         int total = 0;
         for (int i = binContainer.length-1; i > -1; i--) {
-            binContainer[i] = Character.getNumericValue(bin.charAt(current++)); //reverse array, auto char to int;
+            binContainer[i] = Character.getNumericValue(bin.charAt(current++)); //reverse input, char to int;
             if(binContainer[i] != 0) {
                 int power = (int)Math.pow(2,i);
                 total += power;
