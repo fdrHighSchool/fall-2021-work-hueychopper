@@ -5,7 +5,7 @@ public class Exams {
     Scanner s = new Scanner(System.in);
 
     // sample student with 5 slots for grades
-    int[] sampleStudent = new int[5]; //0,1,2,3,4,5
+    int[] sampleStudent = new int[5]; //0,1,2,3,4
 
     // fill up the "gradebook"
     for(int i = 0; i < sampleStudent.length; i++) {
