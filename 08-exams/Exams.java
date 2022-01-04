@@ -17,28 +17,29 @@ public class Exams {
     appendTo(sampleStudent);
   } // end main method
   public static void appendTo(int[] arr) {
-    int[] inh = new int[6];
+    int[] inh = new int[arr.length+1];
     for(int i = 0; i < arr.length; i++) {
       inh[i] = arr[i];
     }
     inh[inh.length-1] = (int)(Math.random() * 46) + 55;
     System.out.println(Arrays.toString(inh));
-    lingrade(inh);
+    lingrade(inh, arr);
   }
-  public static void lingrade(int[] oArr) {
-    int min = oArr[0];
-    for(int i = 0; i < oArr.length; i++) {
-      if(min > oArr[i]) min = oArr[i];
+  public static void lingrade(int[] arr, int[] oArr) {
+    int min = arr[0];
+    for(int i = 0; i < arr.length; i++) {
+      if(min > arr[i]) min = arr[i];
     }
-    int sGrade = oArr[oArr.length - 1];
-    if(sGrade != min || sGrade > min) {
+    int sGrade = arr[arr.length - 1];
+    if(sGrade > min) {
       for(int i = 0; i < oArr.length; i++) {
         if(min == oArr[i]) {
           oArr[i] = sGrade; //replace
+          System.out.println("min: "+min+" replaced at: "+ i);
         }
       }
+      System.out.println(Arrays.toString(oArr)+"<--array with min replaced");
     }
-    System.out.println(Arrays.toString(oArr));
   }
 
 /*
