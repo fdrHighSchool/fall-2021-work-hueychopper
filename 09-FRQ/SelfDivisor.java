@@ -2,13 +2,13 @@ import java.util.Arrays;
 
 public class SelfDivisor {
     public static void main(String[] args) {
-        firstNumSelfDivisors(10, 3);
+        firstNumSelfDivisors(10, 4);
     }
     public static boolean isSelfDivisor(int number) {
         int pch = number;
         while(number > 0) {
             int digit = number % 10;
-            if(pch % digit != 0) {
+            if(digit == 0 || pch % digit != 0) {
                 return false;
             }
             number = number / 10;
@@ -24,7 +24,7 @@ public class SelfDivisor {
                 while(true) {
                     counter++;
                     if(counter > base) {
-                        if((isSelfDivisor(counter) == true)) {
+                        if(isSelfDivisor(counter)) {
                             arr[i] = counter;
                             base = counter;
                             System.out.println("c: "+counter);
