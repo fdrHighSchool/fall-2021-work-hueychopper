@@ -12,7 +12,7 @@ public class SelfDivisor2 {
         }
         return true;
     }
-    public static void firstNumSelfDivisors(int start, int num) {
+    public static int[] firstNumSelfDivisors(int start, int num) {
         int[] arr = new int[num];
         int count = 0;
         for(int i = start; count < num; i++) {
@@ -21,6 +21,6 @@ public class SelfDivisor2 {
                 count++;
             }
         }
-        System.out.println(Arrays.toString(arr));
+        return arr;
     }
 }
