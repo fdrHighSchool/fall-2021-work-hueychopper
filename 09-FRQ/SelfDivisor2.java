@@ -7,9 +7,7 @@ public class SelfDivisor2 {
         int pch = number;
         while(number > 0) {
             int digit = number % 10;
-            if(digit == 0 || pch % digit != 0) {
-                return false;
-            }
+            if(digit == 0 || pch % digit != 0) return false;
             number /= 10;
         }
         return true;
