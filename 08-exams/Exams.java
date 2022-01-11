@@ -6,13 +6,12 @@ public class Exams {
 
     // sample student with 5 slots for grades
     int[] sampleStudent = new int[5]; //0,1,2,3,4
-
+    int[][] gradebook = new int[1][15];
+    System.out.println(Arrays.toString(gradebook));
     // fill up the "gradebook"
     for(int i = 0; i < sampleStudent.length; i++) {
       sampleStudent[i] = (int)(Math.random() * 46) + 55;
-    } // end for loop
-
-    // display the first 5 grades
+    }
     System.out.println(Arrays.toString(sampleStudent)+"<--sample student array");
     appendTo(sampleStudent);
   } // end main method
