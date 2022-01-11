@@ -7,14 +7,12 @@ public class SelfDivisor2 {
         int pch = number;
         while(number > 0) {
             int digit = number % 10;
-            if(digit == 0 || pch % digit != 0) {
-                return false;
-            }
+            if(digit == 0 || pch % digit != 0) return false;
             number /= 10;
         }
         return true;
     }
-    public static void firstNumSelfDivisors(int start, int num) {
+    public static int[] firstNumSelfDivisors(int start, int num) {
         int[] arr = new int[num];
         int count = 0;
         for(int i = start; count < num; i++) {
@@ -23,6 +21,6 @@ public class SelfDivisor2 {
                 count++;
             }
         }
-        System.out.println(Arrays.toString(arr));
+        return arr;
     }
 }
