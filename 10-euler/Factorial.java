@@ -7,7 +7,7 @@ public class Factorial {
     }
     public static BigInteger factorial(long fact) {
         BigInteger result = BigInteger.ONE;
-        for (long i = fact; i > 0; i--) {
+        for(long i = fact; i > 0; i--) {
             System.out.println(i);
             result = result.multiply(BigInteger.valueOf(i));
         }
@@ -17,7 +17,7 @@ public class Factorial {
         BigInteger pch = number;
         BigInteger t = new BigInteger("10");
         int total = 0;
-        while (!number.equals(BigInteger.ZERO)) {
+        while(!number.equals(BigInteger.ZERO)) {
             int d = number.mod(t).intValue();
             total += d;
             number = number.divide(t);
