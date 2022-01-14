@@ -7,7 +7,8 @@ public class Factorial {
     }
     public static BigInteger factorial(long fact) {
         BigInteger result = BigInteger.ONE;
-        for (long i = 2; i <= fact; i++) {
+        for (long i = fact; i > 0; i--) {
+            System.out.println(i);
             result = result.multiply(BigInteger.valueOf(i));
         }
         return result;
