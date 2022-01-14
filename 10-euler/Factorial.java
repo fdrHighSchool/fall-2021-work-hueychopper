@@ -17,7 +17,6 @@ public class Factorial {
         BigInteger t = new BigInteger("10");
         int total = 0;
         while (!number.equals(BigInteger.ZERO)) {
-            // list.add(0, value.mod(ten).intValue());
             int d = number.mod(t).intValue();
             total += d;
             number = number.divide(t);
