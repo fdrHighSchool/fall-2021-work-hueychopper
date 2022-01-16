@@ -57,3 +57,5 @@ public class Connect {
     }
 
 }
+//arraylist backup is for testing purposes. it is used to keep track of entered columns
+//
