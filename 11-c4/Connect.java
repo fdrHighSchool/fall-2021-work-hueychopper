@@ -10,8 +10,6 @@ public class Connect {
             }
         }
         formatBoard(board);
-        ArrayList<Integer> cols = new ArrayList<Integer>();
-        for (int i = 0; i < 7; i++) cols.add(-1);
 
         while(true) {
             Scanner sc = new Scanner(System.in);
@@ -20,6 +18,7 @@ public class Connect {
             System.out.print("player2: ");
             inputHandle(board, sc.nextLine(), cols);
         }
+        //sc.close();
     }
     public static void formatBoard(String[][] bd) {
         System.out.println("\033[H\033[2J");
@@ -31,31 +30,18 @@ public class Connect {
             System.out.println();
         }
     }
-    public static void inputHandle(String[][] bd, String coords, ArrayList<Integer> backup) {
+    public static void inputHandle(String[][] bd, String coords) {
         int com = coords.indexOf(",");
         String uchar = coords.substring(0,com);
         int colNum = Integer.parseInt(coords.substring(com+1));
         
+        
         for(int row = bd.length-1; row > 0; row--) {
-            bd[row][colNum] = "["+uchar+"]";
-            formatBoard(bd);
-            System.out.println(backup);
-            for(int i = 0; i < backup.size(); i++) {
-                if(backup.get(i) != colNum) {
-                    backup.set(colNum, colNum);
-                } else {
-                    System.out.println("you already entered that");
-                }
+            if(bd[row][colNum] == "[ ]") {
+                bd[row][colNum] = "["+uchar+"]";
+                formatBoard(bd);
+                break;
             }
-            
-            if(bd[row][colNum] != "[ ]") {
-                int arrIndex = Arrays.asList(bd).indexOf(bd[row]);
-                
-            }
-            break;
         }
     }
-
 }
-//arraylist backup is for testing purposes. it is used to keep track of entered columns
-//
