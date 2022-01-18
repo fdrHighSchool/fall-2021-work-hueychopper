@@ -2,6 +2,7 @@ import java.util.*;
 
 public class Connect {
     public static void main(String[] args) {
+        boolean win = false;
         System.out.println("input format: (char),(column)");
         String[][] board = new String[6][7];
         for(int row = 0; row < board.length; row++) {
@@ -11,14 +12,19 @@ public class Connect {
         }
         formatBoard(board);
 
-        while(true) {
+        while(!win) {
             Scanner sc = new Scanner(System.in);
             System.out.print("player1: ");
-            inputHandle(board, sc.nextLine(), cols);
+            String p1 = inputHandle(board, sc.nextLine());
+            System.out.println(p1);
             System.out.print("player2: ");
-            inputHandle(board, sc.nextLine(), cols);
+            String p2 = inputHandle(board, sc.nextLine());
+            if(p1 == "player1" || p2 == "player2") {
+                win = true;
+                sc.close();
+                break;
+            }
         }
-        //sc.close();
     }
     public static void formatBoard(String[][] bd) {
         System.out.println("\033[H\033[2J");
@@ -30,18 +36,45 @@ public class Connect {
             System.out.println();
         }
     }
-    public static void inputHandle(String[][] bd, String coords) {
+    public static String inputHandle(String[][] bd, String coords) {
         int com = coords.indexOf(",");
         String uchar = coords.substring(0,com);
         int colNum = Integer.parseInt(coords.substring(com+1));
         
-        
-        for(int row = bd.length-1; row > 0; row--) {
+        String winner = "";
+        for(int row = bd.length-1; row > -1; row--) {
             if(bd[row][colNum] == "[ ]") {
                 bd[row][colNum] = "["+uchar+"]";
                 formatBoard(bd);
+                winner = checkWinner(bd);
                 break;
             }
+            // System.out.print();
+            System.out.println("\033[0;32m"+winner);
         }
+        return winner;
+        
+    }
+
+    public static String checkWinner(String[][] bd) {
+        for(int row = 0; row < bd.length; row++) {
+            int rowCountX = 0; 
+            int rowCountO = 0;
+            for(int col = 0; col < bd[row].length; col++) {
+                
+                if(bd[row][col].equals("[x]")) {
+                    rowCountX++;
+                } else {
+                    rowCountX = 0;
+                }
+                
+
+
+                if(rowCountX == 4) {
+                    return "player1";
+                }
+            }
+        }
+        return "0";
     }
 }
