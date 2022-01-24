@@ -22,7 +22,6 @@ public class Connect {
             if(p1 == "player1" || p2 == "player2") {
                 win = true;
                 sc.close();
-                break;
             }
         }
     }
@@ -44,8 +43,9 @@ public class Connect {
         String winner1 = "";
         String winner2 = "";
         for(int row = bd.length-1; row > -1; row--) {
-            if(bd[row][colNum] == "[ ]") {
-                bd[row][colNum] = "["+uchar+"]";
+            System.out.println(bd[row][colNum-1]);
+            if(bd[row][colNum-1] == "[ ]") {
+                bd[row][colNum-1] = "["+uchar+"]";
                 formatBoard(bd);
                 winner1 = checkWinner(bd, colNum, "[x]");
                 winner2 = checkWinner(bd, colNum, "[o]");
@@ -59,7 +59,7 @@ public class Connect {
         } else if(!winner2.equals("0")) {
             return winner2;
         }
-        return "blank";
+        return "";
     }
 
     public static String checkWinner(String[][] bd, int cCol, String uchar) {
