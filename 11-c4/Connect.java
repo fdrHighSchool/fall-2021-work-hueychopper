@@ -16,7 +16,6 @@ public class Connect {
             Scanner sc = new Scanner(System.in);
             System.out.print("player1: ");
             String p1 = inputHandle(board, sc.nextLine());
-            // System.out.println(p1);
             if(p1.equals("[x]")) {
                 win = true;
                 sc.close();
@@ -63,23 +62,19 @@ public class Connect {
         }
         return "";
     }
-
     public static String checkWinner(String[][] bd, int cCol, String uchar) {
         for(int row = 0; row < bd.length; row++) {
             for(int col = 0; col < bd[row].length; col++) {
                 String sEl = bd[row][col];
                 if(sEl.equals(uchar)) {
-                    //horizontal
                     if(col <= bd[row].length-4 && sEl.equals(bd[row][col+1]) && sEl.equals(bd[row][col+2]) && sEl.equals(bd[row][col+3])) {
                         System.out.println(uchar+" win horizontal");
                         return uchar;
                     }
-                    //vertical
                     if(row <= bd.length-4 && sEl.equals(bd[row+1][col]) && sEl.equals(bd[row+2][col]) && sEl.equals(bd[row+3][col])) {
                         System.out.println(uchar+" win vertical");
                         return uchar;
                     }
-                    //right to left
                     for(int i = 3; i < bd.length; i++) {//set row bounds
                         for(int j = 0; j < bd[row].length-3; j++){ //set col bounds
                             if (bd[i][j].equals(uchar) && bd[i-1][j+1].equals(uchar) && bd[i-2][j+2].equals(uchar)
@@ -89,7 +84,6 @@ public class Connect {
                             }
                         }
                     }
-                    //left to right
                     for(int i = 3; i < bd.length; i++) {
                         for(int j = 3; j < bd[row].length-3; j++) {
                             if(bd[i][j].equals(uchar) && bd[i-1][j-1].equals(uchar) && bd[i-2][j-2].equals(uchar) && bd[i-3][j-3].equals(uchar) ) {
