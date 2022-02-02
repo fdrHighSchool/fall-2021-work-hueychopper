@@ -18,7 +18,7 @@ void setup() {
       bd[row][col] = " ";
     }
   }
-  //noLoop(); //no loop will cause inputting to break
+  noLoop(); //no loop will cause inputting to break
 }
 
 void keyPressed() {
@@ -28,6 +28,7 @@ void keyPressed() {
     boolean isMatch = match.find();
     if(isMatch) {
       checkCol = Character.toString(key);
+      loop();
     }
   } else {
     currentRound++;
@@ -43,7 +44,6 @@ void draw() {
       rect(50+j*50,50+i*50,50,50);
     }
   }
-  formatBoard();
 
   fill(255);
   stroke(255);
@@ -65,10 +65,13 @@ void draw() {
     }
   }
   popMatrix();
+  stroke(0,0,255);
+  formatBoard();
   
 }
 
 void formatBoard() {
+  pushMatrix();
   for(int i = 0; i < bd.length; i++) {
     for(int j = 0; j < bd[i].length; j++) {
       if(bd[i][j].equals("x")) {
@@ -80,6 +83,7 @@ void formatBoard() {
       }
     }
   }
+  popMatrix();
 }
 
 void inputHandler(String[][] bd, String cp) {
@@ -90,8 +94,9 @@ void inputHandler(String[][] bd, String cp) {
   for(int row = bd.length-1; row > -1; row--) {
     if(bd[row][column-1].equals(" ")) {
       bd[row][column-1] = cp;
-      formatBoard();
+      noLoop();
       break;
     }
+    //formatBoard();
   }
 }
